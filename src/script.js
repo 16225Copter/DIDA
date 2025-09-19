@@ -1,4 +1,5 @@
 let model;
+let labels;
 
 async function loadModel() {
 	model = await tf.loadLayersModel('src/model/model.json'); // in model folder
@@ -24,7 +25,7 @@ function preprocessImage(img) {
 }
 
 async function updatedRes(results) {
-	fetch('src/model/datalist.json')
+	fetch('src/model/dataList.json')
 		.then((response) => response.json())
 		.then((dataList) => {
 			let insect = dataList[results[0].label];
@@ -69,17 +70,16 @@ async function predict(imgElement) {
 	});
 	updatedRes(results);
 }
-
 document.getElementById('imageUpload').addEventListener('change', (event) => {
 	const file = event.target.files[0];
-	img = new Image();
+	let img = new Image();
 	img.src = URL.createObjectURL(file);
 	document.getElementById('imagePreview').src = img.src;
 	console.log('Image loaded and preview updated.');
+	window.uploadedImg = img; // Store img globally for predictBtn
 });
-
 document.getElementById('predictBtn').addEventListener('click', () => {
-	predict(img);
+	predict(window.uploadedImg);
 });
 
 loadModel();
