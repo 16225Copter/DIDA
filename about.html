@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html
+	lang="en"
+	data-bs-theme="dark"
+>
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>เว็บแอปพลิเคชั่นตรวจสอบแมลงอันตราย</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+			crossorigin="anonymous"
+		/>
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+	</head>
+	<body>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+			crossorigin="anonymous"
+		></script>
+		<nav class="navbar navbar-expand-lg bg-body-tertiary">
+			<div class="container-fluid">
+				<a
+					class="navbar-brand"
+					href="index.html"
+					>Dangerous insect detection</a
+				>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNav"
+					aria-controls="navbarNav"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div
+					class="collapse navbar-collapse"
+					id="navbarNav"
+				>
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a
+								class="nav-link"
+								aria-current="page "
+								href="index.html"
+								>Home</a
+							>
+						</li>
+						<li class="nav-item">
+							<a
+								class="nav-link text-decoration-line-through"
+								aria-disabled="true"
+								>Data base list</a
+							>
+						</li>
+						<li class="nav-item">
+							<a
+								class="nav-link active"
+								href=""
+								>About this app</a
+							>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="container mt-5 d-flex flex-column align-items-center">
+			<p class="text-center h1">เว็บแอปพลิเคชั่นตรวจสอบแมลงอันตราย</p>
+			<p class="mt-5">
+				<b>Source Code</b><br />
+				สามารถดูซอร์สโค้ดได้ที่
+				<a
+					href="https://github"
+					target="_blank"
+					>GitHub</a
+				><br />
+				<br />
+				<b>หลักการทำงาน</b><br />
+				เว็บแอปพลิเคชั่นตรวจสอบแมลงอันตรายใช้ใช้เทคโนโลยีปัญญาประดิษฐ์
+				(Artificial Intelligence: AI) ในการวิเคราะห์รูปภาพของแมลงที่ผู้ใช้
+				อัพโหลดขึ้นมา<br />
+				โดยโมเดลที่ใช้ใช้เป็นโมเดล MobileNetV2
+				ที่ผ่านการปรับแต่งและฝึกฝนมาเพื่อให้สามารถจำแนกชนิดของแมลงอันตรายได้<br />
+				โดยโมเดลที่ใช้ในการวิเคราะห์นี้ถูกฝึกฝนด้วยข้อมูลรูปภาพของแมลงอันตราย110-130รูปต่อชนิด
+				จากฐานข้อมูลแมลงอันตรายที่มีการจัดเก็บไว้<br />
+				ซึ่งอาจทำให้มีโอกาสความผิดพลาดในการตรวจสอบชนิดแมลงอันตรายได้ถึง25%<br />
+				ดังนั้นผลการตรวจสอบที่ได้จากเว็บแอปพลิเคชั่นนี้จึงควรนำไปใช้เป็นข้อมูลประกอบการตัดสินใจเท่านั้น<br />
+				<br />
+
+				<b>ความแม่นยำ</b><br />
+				โมเดลที่ใช้ในเว็บแอปพลิเคชั่นนี้มีความแม่นยำในการทดสอบที่ประมาณ 82%<br />
+				ซึ่งหมายความว่าในทุกๆ 100 รูปภาพที่ทำการทดสอบ
+				โมเดลจะสามารถทำนายชนิดของแมลงอันตรายได้ถูกต้องประมาณ 82 รูปภาพ<br />
+				อย่างไรก็ตาม ความแม่นยำนี้อาจแตกต่างไปตามลักษณะของรูปภาพที่ถูกอัพโหลด
+				เช่น มุมของภาพ, แสงสว่าง, และพื้นหลังของรูปภาพ<br />
+				ดังนั้น ผู้ใช้ควรใช้ผลการทำนายเป็นข้อมูลประกอบการตัดสินใจเท่านั้น<br />
+				โดยคำนวนจากการทดสอบโมเดลด้วยข้อมูลรูปภาพที่ไม่ได้ใช้ในการฝึกฝนโมเดล(รูปที่
+				AI ไม่เคยเห็นมาก่อน) ซึ่งมีข้อมูลรตามรูปด้านล่าง<br />
+				<img
+					class="rounded mt-3 img-fluid w-auto"
+					src="./src/acc.png"
+					alt="Accuracy"
+				/><br />
+				<br />
+
+				<b>Confusion Matrix</b><br />
+				<img
+					class="rounded mt-3 img-fluid w-auto"
+					src="./src/conf-matx.png"
+					alt="Confusion Matrix"
+				/>
+				<br />
+				โดย Confusion Matrix
+				นี้ได้มาจากการทดสอบโมเดลด้วยข้อมูลรูปภาพที่ไม่ได้ใช้ในการฝึกฝนโมเดล(รูปที่
+				AI ไม่เคยเห็นมาก่อน) ซึ่งมีข้อมูลรูปภาพทั้งหมด 20 รูปต่อชนิด<br />
+				Confusion Matrix
+				นี้แสดงให้เห็นถึงประสิทธิภาพของโมเดลในการจำแนกชนิดของแมลงอันตราย<br />
+				โดยแกนแนวนอนแสดงชนิดของแมลงที่โมเดลทำนาย<br />
+				ส่วนแกนแนวตั้งแสดงชนิดของแมลงที่เป็นจริง<br />
+				<br />
+				<b>เว็บแอปพลิเคชั่น</b><br />
+				เว็บแอปพลิเคชั่นนี้สร้างด้วย HTML, CSS, JavaScript และใช้ Bootstrap
+				เป็นเฟรมเวิร์กในการออกแบบ UI (หน้าเว็บ)<br />
+				ส่วนการประมวลผลภาพและการทำนายชนิดของแมลงอันตรายใช้ TensorFlow.js
+				ซึ่งเป็นไลบรารี JavaScript สำหรับการทำงานด้าน Machine Learning
+				ในเว็บเบราว์เซอร์<br />
+				เว็บแอปพลิเคชั่นนี้ถูกพัฒนาโดยใช้โมเดลที่ผ่านการฝึกฝนมาแล้ว
+				จึงสามารถทำการทำนายบนเครื่องของผู้ใช้ได้<br />
+				<br />
+				<b>ในอนาคต</b><br />
+				ในอนาคตสามารถเพิ่มฐานข้อมูลแมลงอันตรายให้มากขึ้นและหลากหลายขึ้น
+				เพื่อเพิ่มความแม่นยำของโมเดลและลดโอกาสความผิดพลาดในการตรวจสอบชนิดแมลงอันตราย<br />
+				นอกจากนี้ยังสามารถปรับปรุง UI ของเว็บแอปพลิเคชั่นให้ใช้งานง่ายขึ้น
+				และเพิ่มฟีเจอร์ต่างๆ เช่น chat bot
+				สำหรับตอบคำถามเกี่ยวกับแมลงอันตรายหรือใช้การถามลักษณะในการตรวจสอบแทนการอัพโหลดรูปภาพ<br />
+				<br />
+				<b>ข้อมูล</b><br />
+				ผุ้จัดทำ: ด.ช.ญาณภัทร อยู่สำราญ <br />
+				เว็บแอปพลิเคชั่น,งานวิจัย,โคดและอื่นๆ ทั้งหมดมีใบอนุญาต MIT License
+				ตามข้อมูลด้านล่าง<br />
+			</p>
+		</div>
+
+        <footer class="bg-dark text-white py-4 mt-5 mw-100">
+            <div class="container text-center" style="white-space: pre-line;">
+                <p class=""> Copyright (c) 2025 Yanapat Yousumran
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE <a href="LICENSE.txt" class="text-white text-decoration-underline">MIT License</a>.</p>
+                </p>
+            </div>
+        </footer>
+		<script src="./src/script.js"></script>
+	</body>
+</html>
