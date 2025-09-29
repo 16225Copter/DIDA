@@ -2,10 +2,10 @@ let model;
 let labels;
 
 async function loadModel() {
-	model = await tf.loadLayersModel('src/model/model.json'); // in model folder
+	model = await tf.loadLayersModel('src/model/model.json');
 	console.log('Model loaded');
 
-	const response = await fetch('src/model/metadata.json'); // in model folder
+	const response = await fetch('src/model/metadata.json');
 	const metadata = await response.json();
 	labels = metadata.labels;
 	console.log('Labels loaded');
@@ -15,10 +15,10 @@ function preprocessImage(img) {
 	return tf.tidy(() => {
 		let tensor = tf.browser
 			.fromPixels(img)
-			.resizeNearestNeighbor([224, 224]) // resize to your model’s input size
+			.resizeNearestNeighbor([224, 224])
 			.toFloat()
-			.div(tf.scalar(255.0)) // normalize
-			.expandDims(); // add batch dimension
+			.div(tf.scalar(255.0))
+			.expandDims();
 		console.log('Preprocessed image finished');
 		return tensor;
 	});
@@ -76,7 +76,7 @@ document.getElementById('imageUpload').addEventListener('change', (event) => {
 	img.src = URL.createObjectURL(file);
 	document.getElementById('imagePreview').src = img.src;
 	console.log('Image loaded and preview updated.');
-	window.uploadedImg = img; // Store img globally for predictBtn
+	window.uploadedImg = img;
 });
 document.getElementById('predictBtn').addEventListener('click', () => {
 	predict(window.uploadedImg);
